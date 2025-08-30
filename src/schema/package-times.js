@@ -1,0 +1,2 @@
+const PACKAGE_TIMES = [ 15,20,25,30,40,50,60,90,100,120,150,180,200,240,300,360,400,420,480 ].map(v => v * 60);
+export default PACKAGE_TIMES;
