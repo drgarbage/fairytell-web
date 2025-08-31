@@ -92,7 +92,7 @@ export const UserProvider = ({ children }) => {
       currentPage, setCurrentPage,
       showMobileMenu, setShowMobileMenu,
       shouldLogin,
-      isLoggedIn: false 
+      isLoggedIn: !!user 
     }}>
       {children}
     </UserContext.Provider>

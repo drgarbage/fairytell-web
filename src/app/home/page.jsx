@@ -3,19 +3,25 @@ import { Button, TextInput, Badge } from "flowbite-react";
 import { Sparkles, Search } from 'lucide-react';
 import { useTalentList } from "@/components/service-account-booking/context";
 import { useUser } from "@/hooks/useUser";
+import { useRouter } from 'next/navigation';
 import QuickBookingCard from "@/components/quick-booking-card";
 import ModelCard from "@/components/model-card";
 
 export default function Page() {
   const { authReady } = useUser();
   const { accounts, filteredAccounts } = useTalentList();
+  const router = useRouter();
   const allModels = accounts || [];
   const filteredModels = filteredAccounts || [];
   const displayModels = filteredAccounts || [];
   const displayNearbyModels = filteredAccounts || [];
   const displayNewModels = filteredAccounts || [];
   const isLoggedIn = authReady;
-  
+
+  function onModelClick(model) {
+    router.push(`/profile/${model.id}`);
+  }
+
   return (
     <div>
       {/* Hero Section with Background Banner */}
@@ -89,8 +95,8 @@ export default function Page() {
                   />
                 ))}
               </div>
-              <div className="text-center mt-6">
-                <Button variant="outline" className="border-pink-300 text-pink-700 hover:bg-pink-50">
+              <div className="flex text-center justify-center mt-6">
+                <Button color="light" className="border-pink-300 text-pink-700 hover:bg-pink-50">
                   查看更多附近模特兒
                 </Button>
               </div>
@@ -126,8 +132,8 @@ export default function Page() {
                   />
                 ))}
               </div>
-              <div className="text-center mt-6">
-                <Button variant="outline" className="border-pink-300 text-pink-700 hover:bg-pink-50">
+              <div className="flex justify-center text-center mt-6">
+                <Button color="light" className="border-pink-300 text-pink-700 hover:bg-pink-50">
                   查看所有新進模特兒
                 </Button>
               </div>

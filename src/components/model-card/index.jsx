@@ -31,12 +31,9 @@ function NewModelCard({ model, onClick, isLoggedIn, newModel = false }) {
   return (
     <Card
       className="border-pink-200 hover:shadow-lg transition-shadow cursor-pointer group relative"
-      renderImage={() =>
+      renderImage={() => 
         <div className="relative aspect-square">
-          <Carousel
-            className="w-full h-full object-cover rounded-t-lg"
-            slide={false}
-          >
+          <Carousel className="w-full h-full object-cover rounded-t-lg overflow-hidden">
             {images.length > 0 ? images.map((img, idx) => (
               <img
                 key={idx}

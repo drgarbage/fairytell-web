@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { UserProvider } from "@/hooks/useUser";
 import { MessageProvider } from "@/hooks/useMessage";
-import { ThemeModeScript } from "flowbite-react";
+import { ThemeModeScript, Flowbite } from "flowbite-react";
 import Navbar from "@/components/navbar";
 import "./globals.css";
 
@@ -22,11 +22,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html>
+      <head>
         <ThemeModeScript />
+      </head>
+      <body className={`min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 ${geistSans.variable} ${geistMono.variable}`}>
         <MessageProvider>
           <UserProvider>
             <Navbar />

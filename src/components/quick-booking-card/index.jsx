@@ -10,18 +10,18 @@ function QuickBookingCard({ model, onClick, isLoggedIn }) {
       className="border-pink-200 hover:shadow-lg transition-shadow cursor-pointer group"
       onClick={onClick}
     >
-      <div className="p-4">
+      <div className="p-0">
         <div className="flex items-center space-x-4">
           <Avatar
             img={model.avatar}
             rounded
             size="lg"
-            alt={model.name}
+            alt={model.profile.name}
           />
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-1">
-              <h4 className="font-semibold text-gray-900">{model.name}</h4>
-              {model.isOnline && (
+              <h4 className="font-semibold text-gray-900">{model.profile.name}</h4>
+              {model.state === 'ONLINE' && (
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               )}
               {model.isVerified && (
@@ -30,11 +30,7 @@ function QuickBookingCard({ model, onClick, isLoggedIn }) {
             </div>
             <div className="flex items-center text-sm text-gray-600 mb-1">
               <span className="icon-[material-symbols--location-on] mr-1"></span>
-              {model.location} • {model.age}歲 • {model.nationality}
-            </div>
-            <div className="flex items-center text-sm text-gray-600 mb-2">
-              <span className="icon-[material-symbols--nest-clock-farsight-analog] mr-1"></span>
-              回應時間：{model.responseTime}
+              {model.placeInfo?.city} • {model.profile?.age}歲 • {model.profile?.nation}
             </div>
             <p className="text-sm text-pink-600 font-medium">{model.priceRange}</p>
           </div>
