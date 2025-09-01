@@ -4,6 +4,7 @@ import { Avatar, Button } from "flowbite-react";
 import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import signOut from "@/client-services/auth/signOut";
 
 export default function NavigationBar() {
   const router = useRouter();
@@ -12,6 +13,11 @@ export default function NavigationBar() {
     showMobileMenu, setShowMobileMenu,
     isLoggedIn,
    } = useUser();
+
+   const onSignOut = () => {
+     signOut();
+     router.replace("/");
+   };
 
   return (
     <header>
@@ -27,7 +33,7 @@ export default function NavigationBar() {
               <div className="flex items-center space-x-4">
                 <Avatar rounded img="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" />
                 <Button
-                  onClick={() => setIsLoggedIn(false)}
+                  onClick={() => onSignOut()}
                   color="light"
                   className="text-gray-600 hover:text-pink-600"
                 >

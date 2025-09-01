@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "aja-console"
+  },
+  "targets": {
+    "aja-console": {
+      "hosting": {
+        "production": ["aja-web"]
+      }
+    }
+  }
+}
