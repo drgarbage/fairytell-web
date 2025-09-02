@@ -1,6 +1,6 @@
 'use client';
 
-import { Drawer } from "flowbite-react";
+import { Drawer, DrawerHeader, DrawerItems } from "flowbite-react";
 import { createContext, useContext, useState } from "react";
 
 export const DrawerContext = createContext({});
@@ -28,10 +28,10 @@ export default function DrawerView({children, className = ''}){
       position="right"
       open={showDrawer} 
       onClose={() => setShowDrawer(false)}>
-      <Drawer.Header title="篩選條件" />
-      <Drawer.Items>
+      <DrawerHeader title="篩選條件" />
+      <DrawerItems>
         {children}
-      </Drawer.Items>
+      </DrawerItems>
     </Drawer>
   );
 }

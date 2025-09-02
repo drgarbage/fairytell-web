@@ -6,11 +6,22 @@ import { ChevronLeft, ChevronRight, ThumbsUp, MessageSquare, Share2, Calendar, M
 function PostCard({ post }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'GirlHub 網站',
+        text: post.caption,
+        url: window.location.href,
+      }).catch(() => {});
+    } else {
+      window.prompt('Copy this link:', window.location.href);
+    }
+  };
+
   return (
     <Card 
       className="mb-6"
       renderImage={() => 
-        
         <div className="relative">
           <img
             src={post.images[currentImageIndex]}
@@ -65,16 +76,12 @@ function PostCard({ post }) {
               {post.likes}
             </Button>
             <Button color="light" size="xs" className="!text-gray-600 hover:!text-pink-600">
-              <MessageSquare size={16} className="mr-1" />
-              {post.comments}
-            </Button>
-            <Button color="light" size="xs" className="!text-gray-600 hover:!text-pink-600">
-              <Share2 size={16} />
+              <Share2 size={16} onClick={handleShare} />
             </Button>
           </div>
           <div className="flex items-center text-sm text-gray-500">
             <Calendar size={14} className="mr-1" />
-            {post.date}
+            {post.createdAt.toLocaleDateString()}
           </div>
         </div>
 

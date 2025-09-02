@@ -5,7 +5,7 @@ function AboutSection({ model }) {
     <div className="mb-8">
       <h4 className="text-xl font-bold text-gray-900 mb-4">關於我</h4>
       <p className="text-gray-600 leading-relaxed">
-        {model.agentInfo?.name ? `經紀人：${model.agentInfo.name}` : "暫無介紹"}
+        {model.intro ? `${model.intro}` : "暫無介紹"}
       </p>
     </div>
   );

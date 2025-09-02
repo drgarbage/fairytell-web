@@ -4,8 +4,8 @@ import { useImmer } from "use-immer";
 import { logError } from "@/utils/log";
 import { Icons, useMessage } from "@/hooks/useMessage";
 import { calculator } from "@/utils/broker-commission-calculator";
-import { Matcher } from "@/utils/matcher";
 import queryServiceAccounts from "@/client-services/service-accounts/queryServiceAccounts";
+import { getCityFromCurrentLocation } from "@/utils/gps";
 
 function genIndex(account) {
   const indexingKeys = [
@@ -59,6 +59,7 @@ export const useTalentList = () => {
   return context;
 }
 export const TalentListProvider = ({ 
+  districts = {},
   children, matches, options, commissions = {}, 
   conditionalCommissions = [],
   booking = false, pricing = false,
@@ -67,19 +68,22 @@ export const TalentListProvider = ({
   const {loading, setLoading, alertStatic} = useMessage();
   const [query, setQuery] = useState('');
   const [keys, setKeys] = useImmer({});
-
   const [cities, setCities] = useImmer({});
   const [regions, setRegions] = useImmer({});
   const [cups, setCups] = useImmer({});
   const [tags, setTags] = useImmer({});
   const [services, setServices] = useImmer({});
   const [countries, setCountries] = useImmer({});
+
+  const [currentCity, setCurrentCity] = useState(null);
+
   const citiesKeys = Object.keys(cities).filter(k => cities[k]);
   const regionsKeys = Object.keys(regions).filter(k => regions[k]);
   const cupsKeys = Object.keys(cups).filter(k => cups[k]);
   const tagsKeys = Object.keys(tags).filter(k => tags[k]);
   const servicesKeys = Object.keys(services).filter(k => services[k]);
   const countriesKeys = Object.keys(countries).filter(k => countries[k]);
+  const activeFiltersCount = citiesKeys.length + regionsKeys.length + cupsKeys.length + tagsKeys.length + servicesKeys.length + countriesKeys.length;
 
   const [accounts, setAccounts] = useState([]);
   const filteredAccounts = accounts
@@ -99,6 +103,9 @@ export const TalentListProvider = ({
     .map(a => ({ ...a, index: genIndex(a).indexOf(query) }))
     .filter(o => o.index >= 0)
     .sort((a,b) => a.index - b.index);
+
+  const latestAccounts = [...filteredAccounts].sort((a,b) => b.createdAt - a.createdAt).slice(0, 3);
+  const nearbyAccounts = accounts.filter(a => a?.placeInfo?.city === currentCity)?.slice(0,6);
 
   const toggleKey = (key) => {
     setKeys(draft => {
@@ -137,12 +144,18 @@ export const TalentListProvider = ({
         });
       })
       .finally(() => setLoading(false));
+    getCityFromCurrentLocation()
+      .then(setCurrentCity)
+      .catch(err => {
+        logError(err);
+      });
     return () => setLoading(false);
   }, []);
       
   return (
     <TalentListContext.Provider value={{
       loading,
+      currentCity, setCurrentCity,
       query, setQuery,
       keys, toggleKey, clearKeys, clearAllKeys,
       cities, setCities,
@@ -155,9 +168,11 @@ export const TalentListProvider = ({
       // commissions,
       commissionsByAccount,
       filteredAccounts,
+      latestAccounts,
+      nearbyAccounts,
       booking,
       pricing,
-
+      activeFiltersCount,
       // additional tools
       itemOverlay,
     }}>

@@ -2,6 +2,7 @@ import React from "react";
 import { Card } from "flowbite-react";
 import { Avatar } from "flowbite-react";
 import { Badge, Button } from "flowbite-react";
+import strings from "@/utils/strings";
 
 // Quick Booking Card Component
 function QuickBookingCard({ model, onClick, isLoggedIn }) {
@@ -30,7 +31,7 @@ function QuickBookingCard({ model, onClick, isLoggedIn }) {
             </div>
             <div className="flex items-center text-sm text-gray-600 mb-1">
               <span className="icon-[material-symbols--location-on] mr-1"></span>
-              {model.placeInfo?.city} • {model.profile?.age}歲 • {model.profile?.nation}
+              {model.placeInfo?.city} • {model.profile?.age}歲 • {strings(model.profile?.nation)}
             </div>
             <p className="text-sm text-pink-600 font-medium">{model.priceRange}</p>
           </div>

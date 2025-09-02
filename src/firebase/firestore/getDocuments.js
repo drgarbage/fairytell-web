@@ -18,7 +18,7 @@ import {
  * @param {object} options - 其他查詢選項，例如 { limit, orderBy, startAt, endAt }
  * @returns {Array} 回傳陣列 [{ id, ...docData }]
  */
-export default async function getDocuments(path, matches, options = {}) {
+export default async function getDocuments(path, matches = {}, options = {}) {
   const ref = collection(db, path);
   const queryArgs = [];
 

@@ -1,7 +1,7 @@
 import { Rating, RatingStar } from 'flowbite-react';
 
 function StarRating(props) {
-  const { rating } = props;
+  const { rating, onChange = () => {}, size = 24 } = props;
   return (
     <div className="flex items-center">
       <Rating>
@@ -9,7 +9,9 @@ function StarRating(props) {
           <RatingStar
             key={star}
             filled={star <= rating}
-            className={star <= rating ? 'text-yellow-500' : 'text-gray-300'}
+            className={star <= rating ? 'text-yellow-400' : 'text-gray-300'}
+            onClick={() => onChange(star)}
+            style={{ width: size, height: size }}
           />
         ))}
       </Rating>

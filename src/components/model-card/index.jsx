@@ -1,6 +1,11 @@
-import { Card, Badge, Carousel } from 'flowbite-react';
+import { Card, Badge } from 'flowbite-react';
+import Carousel from '../carousel';
+import strings from '@/utils/strings';
+import { MapPin } from 'lucide-react';
+import { packagePriceOf } from '@/utils/package-utils';
+import money from '@/utils/money';
 
-function NewModelCard({ model, onClick, isLoggedIn, newModel = false }) {
+function ModelCard({ model, onClick, isLoggedIn, newModel = false, commissions = {} }) {
   // 只取圖片
   const images = model.medias.filter(m => m.type.startsWith('image')).map(m => m.url);
 
@@ -22,32 +27,19 @@ function NewModelCard({ model, onClick, isLoggedIn, newModel = false }) {
     : '';
 
   // 國籍
-  const nationMap = { tw: '台灣', jp: '日本', kr: '韓國' }; // 可自行擴充
-  const nationality = nationMap[model.profile.nation] || model.profile.nation;
+  const nationality = strings(model?.profile?.nation?.toUpperCase());
+  const location = model?.placeInfo?.city;
 
-  // 位置
-  const location = `${model.city || ''}${model.region || ''}`;
+  const [cheapestPackage] = model?.packages?.sort((a, b) => packagePriceOf(a, commissions) - packagePriceOf(b, commissions)) || [];
+  const startingPrice = !!cheapestPackage ? `$${money(packagePriceOf(cheapestPackage, commissions))}+` : null;
+
 
   return (
     <Card
       className="border-pink-200 hover:shadow-lg transition-shadow cursor-pointer group relative"
       renderImage={() => 
         <div className="relative aspect-square">
-          <Carousel className="w-full h-full object-cover rounded-t-lg overflow-hidden">
-            {images.length > 0 ? images.map((img, idx) => (
-              <img
-                key={idx}
-                src={img}
-                alt={`model-${idx}`}
-                className="w-full h-full object-cover rounded-t-lg"
-              />
-            )) : (
-              <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-t-lg text-gray-400">
-                無圖片
-              </div>
-            )}
-          </Carousel>
-
+          <Carousel images={images} className="w-full h-full object-cover overflow-hidden" rounded="rounded-t-lg" />
           {newModel && (
             <Badge color="pink" className="absolute top-3 left-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
               新進模特兒
@@ -67,13 +59,26 @@ function NewModelCard({ model, onClick, isLoggedIn, newModel = false }) {
         </div>
 
         <div className="flex items-center text-sm text-gray-600 mb-2">
-          <span className="icon-[material-symbols--location-on] mr-1"></span>
+          <MapPin size={12} className="mr-1" />
           {location} • {model.profile.age}歲 • {nationality}
         </div>
 
-        <p className="text-sm text-pink-600 font-medium mb-3">{priceRange}</p>
+        <p className="text-sm text-pink-600 font-medium mb-3">{startingPrice}</p>
 
         <div className="flex flex-wrap gap-1 mb-3">
+          {model.tags?.slice(0, 2).map((service, index) => (
+            <Badge key={index} color="pink" className="text-xs border-pink-200 text-pink-700">
+              {service}
+            </Badge>
+          ))}
+          {model.tags?.length > 2 && (
+            <Badge color="pink" className="text-xs border-pink-200 text-pink-700">
+              +{model.tags?.length - 2}
+            </Badge>
+          )}
+        </div>
+
+        {/* <div className="flex flex-wrap gap-1 mb-3">
           {services.slice(0, 2).map((service, index) => (
             <Badge key={index} color="pink" className="text-xs border-pink-200 text-pink-700">
               {service}
@@ -84,18 +89,18 @@ function NewModelCard({ model, onClick, isLoggedIn, newModel = false }) {
               +{services.length - 2}
             </Badge>
           )}
-        </div>
+        </div> */}
 
-        <div className="flex items-center justify-between">
+        {/* <div className="flex items-center justify-between"> */}
           {/* followers 資料結構沒有，這裡預設顯示 0 */}
-          <span className="text-sm text-gray-600">{0} 追蹤者</span>
-          <Badge color="pink" className="text-xs border-pink-300 text-pink-700">
+          {/* <span className="text-sm text-gray-600">{0} 追蹤者</span> */}
+          {/* <Badge color="pink" className="text-xs border-pink-300 text-pink-700">
             新星優惠
-          </Badge>
-        </div>
+          </Badge> */}
+        {/* </div> */}
       </div>
     </Card>
   );
 }
 
-export default NewModelCard;
+export default ModelCard;

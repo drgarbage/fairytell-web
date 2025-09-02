@@ -9,7 +9,8 @@ import PortfolioSection from "@/components/portfolio-section";
 import ReviewsSection from "@/components/reviews-section";
 
 function PageClient({ model, posts, reviews }) {
-  const [tab, setTab] = React.useState("posts");
+  const [tab, setTab] = React.useState(posts.length > 0 ? "posts" : "portfolio");
+  const commissions = { "BROKER": 500 };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -25,7 +26,7 @@ function PageClient({ model, posts, reviews }) {
       <div className="">
         
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 max-h-100vh">
-          <Sidebar model={model} isLoggedIn={true} />
+          <Sidebar model={model} reviews={reviews} isLoggedIn={true} commissions={commissions} />
           <div className="lg:col-span-3 overflow-y-auto">
             <AboutSection model={model} />
             <Tabs

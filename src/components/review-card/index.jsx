@@ -19,7 +19,7 @@ function ReviewCard({ review }) {
             <div>
               <h5 className="font-medium text-gray-900">{review.userName}</h5>
               <Badge color="info" className="text-xs mt-1">
-                {review.projectType}
+                VIP 用戶
               </Badge>
             </div>
             <div className="text-right">

@@ -9,10 +9,13 @@
   },
   "dependencies": {
     "@sentry/nextjs": "^10.8.0",
+    "axios": "^1.11.0",
     "date-fns": "^4.1.0",
     "firebase": "^12.2.1",
     "flowbite-react": "^0.12.7",
+    "i18n-iso-countries": "^7.14.0",
     "immer": "^10.1.1",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.542.0",
     "luxon": "^3.7.1",
     "next": "^15.5.2",
