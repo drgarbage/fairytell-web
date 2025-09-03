@@ -15,9 +15,9 @@ function QuickBookingCard({ model, onClick, isLoggedIn }) {
         <div className="flex items-center space-x-4">
           <Avatar
             img={model.avatar}
-            rounded
-            size="lg"
             alt={model.profile.name}
+            size="lg"
+            rounded
           />
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-1">

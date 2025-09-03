@@ -56,9 +56,8 @@ export default function NavigationBar() {
             </button>
             {isLoggedIn ? (
               <div className="flex items-center space-x-4">
-                <Avatar className="w-8 h-8">
-                  <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" />
-                  <AvatarFallback>U</AvatarFallback>
+                <Avatar img="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" className="w-8 h-8">
+                  U
                 </Avatar>
                 <Button
                   onClick={onSignOut}

@@ -1,10 +1,10 @@
 import React from "react";
 import { Card, Avatar, Badge, Button } from "flowbite-react";
 import { MapPin, Star, User } from "lucide-react";
-import { packagePriceOf } from "@/utils/package-utils";
+import { packageNameOf, packagePriceOf } from "@/utils/package-utils";
+import { PLATFORM_COMMISSION } from "@/schema/globals";
 import money from "@/utils/money";
 import strings from "@/utils/strings";
-import Image from "next/image";
 
 
 function Sidebar({ model, reviews = [], isLoggedIn, commissions = {} }) {
@@ -84,6 +84,46 @@ function Sidebar({ model, reviews = [], isLoggedIn, commissions = {} }) {
             <h4 className="font-semibold text-gray-900 mb-2">價格範圍</h4>
             <p className="text-pink-600 font-medium">{priceRange}</p>
           </div>
+
+          { isLoggedIn && model?.freeServices?.length > 0 &&
+            <div className="mb-6 w-full">
+              <h4 className="font-semibold text-gray-900 mb-2">配合項目</h4>
+              <div className="flex flex-wrap gap-1">
+                {model?.freeServices?.map((item,index) =>
+                  <Badge key={`${item?.name}-${index}`} color="dark">{item.name}</Badge>
+                )}
+              </div>
+            </div>
+          }
+
+          { isLoggedIn && model?.paidServices?.length > 0 &&
+            <div className="mb-6 w-full">
+              <h4 className="font-semibold text-gray-900 mb-2">收費服務</h4>
+              <div className="flex flex-wrap gap-1">
+                {model?.paidServices?.map((item,index) =>
+                  <div key={`${item?.name}-${index}`} className="flex flex-row justify-between mb-2">
+                    <span>{item.name}</span>
+                    <span>{`$ ${item.price}`}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          }
+          
+          { isLoggedIn && model?.packages?.length > 0 &&
+            <div className="mb-6 w-full">
+              <h4 className="font-semibold text-gray-900 mb-2">套餐</h4>
+              <div className="flex flex-wrap gap-1">
+                {model?.packages?.map((item,index) =>
+                  <div key={`${item?.id}-${index}`} className="flex flex-row justify-between w-full mb-2">
+                    <span>{packageNameOf(item)}</span>
+                    <span>{`$ ${money(packagePriceOf(item, PLATFORM_COMMISSION))}`}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          }
+
           <div className="mb-6 w-full">
             <h4 className="font-semibold text-gray-900 mb-2">標籤</h4>
             <div className="flex flex-wrap gap-1">
@@ -94,6 +134,7 @@ function Sidebar({ model, reviews = [], isLoggedIn, commissions = {} }) {
               ))}
             </div>
           </div>
+
           <div className="space-y-3 w-full">
             {isLoggedIn ? (
               <>
