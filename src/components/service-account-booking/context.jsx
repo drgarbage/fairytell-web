@@ -59,7 +59,6 @@ export const useTalentList = () => {
   return context;
 }
 export const TalentListProvider = ({ 
-  districts = {},
   children, matches, options, commissions = {}, 
   conditionalCommissions = [],
   booking = false, pricing = false,

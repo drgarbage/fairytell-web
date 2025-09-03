@@ -19,7 +19,7 @@ export const useUser = () => {
   return context;
 }
 
-export const UserProvider = ({ children }) => {
+export const UserProvider = ({ children, defaultBroker }) => {
   const [firebaseUser, setFirebaseUser] = useState(null);
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
@@ -86,6 +86,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider value={{ 
+      defaultBroker,
       firebaseUser, user, authReady, 
       updateProfile: update, 
       agentId, brokerId, merchantId,

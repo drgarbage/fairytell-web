@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { UserProvider } from "@/hooks/useUser";
 import { MessageProvider } from "@/hooks/useMessage";
 import { ThemeModeScript, ThemeProvider, createTheme } from "flowbite-react";
+import fetchDefaultBroker from "@/client-services/preference/defaultBroker";
 import Navbar from "@/components/navbar";
 import "./globals.css";
 
@@ -30,7 +31,9 @@ const customTheme = createTheme({
   },
 });
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const defaultBroker = await fetchDefaultBroker();
+
   return (
     <html>
       <head>
@@ -39,7 +42,7 @@ export default function RootLayout({ children }) {
       <body className={`min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 ${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider theme={customTheme}>
           <MessageProvider>
-            <UserProvider>
+            <UserProvider defaultBroker={defaultBroker}>
               <Navbar />
               {children}
             </UserProvider>

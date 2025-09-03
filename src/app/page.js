@@ -1,8 +1,11 @@
 import { TalentListProvider } from "@/components/service-account-booking/context";
+import { PLATFORM_COMMISSION } from "@/schema/globals";
 import DrawerView, { DrawerProvider } from "@/components/service-account-booking/drawer";
 import FilterView from "@/components/service-account-booking/filters";
 import PageClient from "./page.client";
 import getDocument from "@/firebase/firestore/getDocument";
+import fetchDefaultBroker from "@/client-services/preference/defaultBroker";
+
 const districts = require('@/components/districts/districts.json');
 
 async function fetchPreferences(){
@@ -40,17 +43,17 @@ async function fetchPreferences(){
 
 export default async function Page() {
   const preferences = await fetchPreferences();
+  const defaultBroker = await fetchDefaultBroker();
   // todo: 處理刊登條件
   // todo: 處理隨機幹部
   return (
     <TalentListProvider
-      matches={{state: 'ONLINE'}} 
-      districts={preferences.districts}
-      // commissions={commissions}
-      // conditionalCommissions={conditionalCommissions}
-      // matches={matches} options={options}
-      // booking={booking} pricing={pricing}
-      // itemOverlay={itemOverlay}
+      commissions={{...defaultBroker.commissions, ...PLATFORM_COMMISSION}}
+      conditionalCommissions={defaultBroker.conditionalCommissions || []}
+      matches={{...defaultBroker.matches, state: 'ONLINE'}} 
+      options={defaultBroker.options}
+      booking={defaultBroker.booking} 
+      pricing={defaultBroker.pricing}
     >
       <DrawerProvider>
         <DrawerView>

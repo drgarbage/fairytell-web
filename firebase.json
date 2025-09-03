@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "aja-web",
+    "site": "girlhub",
     "source": ".",
     "ignore": [
       "firebase.json",

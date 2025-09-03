@@ -5,7 +5,9 @@
   "targets": {
     "aja-console": {
       "hosting": {
-        "production": ["aja-web"]
+        "girlhub-production": [
+          "girlhub"
+        ]
       }
     }
   }

@@ -7,10 +7,11 @@ import Sidebar from "@/components/sidebar";
 import AboutSection from "@/components/about-section";
 import PortfolioSection from "@/components/portfolio-section";
 import ReviewsSection from "@/components/reviews-section";
+import { PLATFORM_COMMISSION } from "@/schema/globals";
 
-function PageClient({ model, posts, reviews }) {
+function PageClient({ defaultBroker, model, posts, reviews }) {
   const [tab, setTab] = React.useState(posts.length > 0 ? "posts" : "portfolio");
-  const commissions = { "BROKER": 500 };
+  const commissions = {...defaultBroker.commissions, ...PLATFORM_COMMISSION};
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
