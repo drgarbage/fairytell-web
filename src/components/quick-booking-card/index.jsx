@@ -36,7 +36,7 @@ function QuickBookingCard({ model, onClick, isLoggedIn }) {
             <p className="text-sm text-pink-600 font-medium">{model.priceRange}</p>
           </div>
         </div>
-        {isLoggedIn && (
+        {/* {isLoggedIn && (
           <Button
             className="w-full mt-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-sm"
             onClick={e => {
@@ -46,7 +46,7 @@ function QuickBookingCard({ model, onClick, isLoggedIn }) {
           >
             立即預約
           </Button>
-        )}
+        )} */}
       </div>
     </Card>
   );

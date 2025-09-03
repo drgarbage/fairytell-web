@@ -3,6 +3,7 @@ import getServiceAccount from "@/client-services/service-accounts/serviceAccount
 import PageClient from "./page.client";
 import getDocuments from "@/firebase/firestore/getDocuments";
 import fetchDefaultBroker from "@/client-services/preference/defaultBroker";
+import getDocument from "@/firebase/firestore/getDocument";
 
 async function fetchData(uid) {
   const [serviceAccount, postsRaw, reviewsRaw] = await Promise.all([
@@ -33,6 +34,7 @@ async function ProfilePage({ params }) {
   const { uid } = await params;
   const { serviceAccount, posts, reviews } = await fetchData(uid);
   const defaultBroker = await fetchDefaultBroker();
+  defaultBroker.brokerInfo = await getDocument(`/brokers`, defaultBroker.broker);
   return (
     <PageClient defaultBroker={defaultBroker} model={serviceAccount} posts={posts} reviews={reviews} />
   );
