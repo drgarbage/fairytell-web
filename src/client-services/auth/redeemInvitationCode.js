@@ -17,7 +17,7 @@ export default async function redeemInvitationCode(code, user, accountType, acco
     user: user.uid,
     userInfo: {
       displayName: user.displayName,
-      photoURL: user.photoURL,
+      photoUrl: user.photoUrl,
     },
     accountType,
     accountInfo,

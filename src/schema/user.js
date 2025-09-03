@@ -4,7 +4,7 @@ export default {
   email: '',              // firebase user email
   emailVerified: false,   // firebase user email verified
   phoneNumber: '',        // firebase user phone number
-  photoURL: '',           // firebase user photo url
+  photoUrl: '',           // firebase user photo url
 
   auth: {
     admin: false,

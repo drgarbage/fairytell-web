@@ -3,10 +3,10 @@ import { Avatar } from 'flowbite-react';
 import { Badge } from 'flowbite-react';
 import StarRating from '@/components/star-rating';
 
-function ReviewCard({ review }) {
+function ReviewCard({ review, editable, onEdit, onDelete }) {
   return (
     <Card className="border-gray-200">
-      <div className="flex items-start space-x-3 p-4">
+      <div className="flex items-start space-x-3">
         <Avatar img={review.userAvatar} rounded size="md">
           {!review.userAvatar && (
             <div className="flex items-center justify-center w-full h-full bg-gray-200 text-gray-700">
@@ -28,6 +28,22 @@ function ReviewCard({ review }) {
             </div>
           </div>
           <p className="text-gray-700 text-sm leading-relaxed">{review.comment}</p>
+          {editable && (
+            <div className="flex space-x-2 mt-3">
+              <button
+                className="text-blue-500 text-sm hover:underline"
+                onClick={onEdit}
+              >
+                編輯
+              </button>
+              <button
+                className="text-red-500 text-sm hover:underline"
+                onClick={onDelete}
+              >
+                刪除
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </Card>

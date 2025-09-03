@@ -58,7 +58,10 @@ function PageClient({ defaultBroker, model, posts, reviews }) {
                 <PortfolioSection model={model} />
               </TabItem>
               <TabItem active={tab === "reviews"} title="客戶評價">
-                <ReviewsSection reviews={reviews} />
+                <ReviewsSection 
+                  serviceAccountId={model.id} 
+                  reviews={reviews} 
+                  />
               </TabItem>
             </Tabs>
           </div>

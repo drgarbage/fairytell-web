@@ -13,7 +13,7 @@ export default async function registerWithEmailAndPassword(email, password, prof
     email: user.email,
     emailVerified: user.emailVerified,
     displayName: user.displayName,
-    photoURL: user.photoURL,
+    photoUrl: user.photoUrl,
     phoneNumber: user.phoneNumber,
     ...profile,
 

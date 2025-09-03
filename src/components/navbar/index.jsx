@@ -9,6 +9,7 @@ export default function NavigationBar() {
   const router = useRouter();
   const { 
     // currentPage, setCurrentPage, 
+    user,
     showMobileMenu, setShowMobileMenu,
     isLoggedIn,
    } = useUser();
@@ -54,13 +55,11 @@ export default function NavigationBar() {
             </button>
             {isLoggedIn ? (
               <div className="flex items-center space-x-4">
-                <Avatar img="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" className="w-8 h-8">
-                  U
-                </Avatar>
+                <Avatar rounded img={user?.photoUrl} />
                 <Button
                   onClick={onSignOut}
                   variant="ghost"
-                  className="text-gray-600 hover:text-pink-600"
+                  className="bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700"
                 >
                   登出
                 </Button>
@@ -117,48 +116,5 @@ export default function NavigationBar() {
         )}
       </div>
     </header>
-    // <header>
-    //   <Navbar fluid>
-    //     <NavbarBrand as={Link} href="/">
-    //       <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-    //         GirlHub
-    //       </h1>
-    //     </NavbarBrand>
-    //     <NavbarToggle />
-    //     <NavbarCollapse>
-    //         {isLoggedIn ? (
-    //           <div className="flex items-center space-x-4">
-    //             <Avatar rounded img="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" />
-    //             <Button
-    //               onClick={() => onSignOut()}
-    //               color="light"
-    //               className="text-gray-600 hover:text-pink-600"
-    //             >
-    //               登出
-    //             </Button>
-    //           </div>
-    //         ) : (
-    //           <Button
-    //             onClick={() => router.push('/auth')}
-    //             className="bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700"
-    //           >
-    //             登入 / 註冊
-    //           </Button>
-    //         )}
-
-    //         {/* Mobile Menu Button */}
-    //         <button
-    //           onClick={() => setShowMobileMenu(!showMobileMenu)}
-    //           className="md:hidden p-2 rounded-lg  text-black hover:text-pink-600"
-    //         >
-    //           { 
-    //             showMobileMenu ? 
-    //             <span className="icon-[material-symbols--close]" /> : 
-    //             <span className="icon-[material-symbols--menu]" />
-    //           }
-    //         </button>
-    //     </NavbarCollapse>
-    //   </Navbar>
-    // </header>
   );
 }
