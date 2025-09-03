@@ -13,9 +13,9 @@ function PortfolioSection({ model }) {
             src={image}
             alt={`${model.profile.name} 作品 ${idx + 1}`}
             fill={false}
-            width={400}
-            height={256}
-            className="w-full h-64 object-cover rounded-lg"
+            width={512}
+            height={512}
+            className="w-full object-cover rounded-lg"
             style={{ objectFit: "cover" }}
           />
         </div>

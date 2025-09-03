@@ -64,7 +64,7 @@ export default function PageClient({preferences}) {
       </div>
 
       {/* Content Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
         {/* Filter Results Info */}
         {filteredModels.length !== allModels.length && (
           <div className="mb-8 p-4 bg-pink-50 rounded-lg border border-pink-200">
@@ -104,7 +104,7 @@ export default function PageClient({preferences}) {
                   ))}
                 </div>
                 <div className="flex text-center justify-center mt-6">
-                  <Button href="/search?filters=nearby" color="light" className="border-pink-300 text-pink-700 hover:bg-pink-50">
+                  <Button href="/search?type=nearby" color="light" className="border-pink-300 text-pink-700 hover:bg-pink-50">
                     查看更多附近模特兒
                   </Button>
                 </div>
@@ -143,7 +143,7 @@ export default function PageClient({preferences}) {
                 ))}
               </div>
               <div className="flex justify-center text-center mt-6">
-                <Button href="/search?filters=new" color="light" className="border-pink-300 text-pink-700 hover:bg-pink-50">
+                <Button href="/search?type=latest" color="light" className="border-pink-300 text-pink-700 hover:bg-pink-50">
                   查看所有新進模特兒
                 </Button>
               </div>
@@ -160,7 +160,7 @@ export default function PageClient({preferences}) {
           <h3 className="text-2xl font-bold text-gray-900 mb-6">推薦模特兒</h3>
           {displayModels.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {displayModels.slice(0, 6).map((model) => (
+              {displayModels.map((model) => (
                 <ModelCard 
                   key={model.id} 
                   model={model} 

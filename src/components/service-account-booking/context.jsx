@@ -104,8 +104,8 @@ export const TalentListProvider = ({
     .filter(o => o.index >= 0)
     .sort((a,b) => a.index - b.index);
 
-  const latestAccounts = [...filteredAccounts].sort((a,b) => b.createdAt - a.createdAt).slice(0, 3);
-  const nearbyAccounts = accounts.filter(a => a?.placeInfo?.city === currentCity)?.slice(0,6);
+  const latestAccounts = [...accounts].sort((a,b) => b.createdAt - a.createdAt).slice(0, 3);
+  const nearbyAccounts = [...accounts].filter(a => a?.placeInfo?.city === currentCity)?.slice(0,6);
 
   const toggleKey = (key) => {
     setKeys(draft => {

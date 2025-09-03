@@ -38,10 +38,14 @@ async function fetchPreferences(){
   }
 }
 
-export default async function Page() {
+export default async function Page({searchParams}) {
   const preferences = await fetchPreferences();
+  const { type } = await searchParams;
+  
   return (
     <TalentListProvider
+      matches={{state: 'ONLINE'}} 
+      districts={preferences.districts}
       // commissions={commissions}
       // conditionalCommissions={conditionalCommissions}
       // matches={matches} options={options}
@@ -58,7 +62,7 @@ export default async function Page() {
             services={preferences.services}
             />
         </DrawerView>
-        <PageClient preferences={preferences} />
+        <PageClient preferences={preferences} type={type} />
       </DrawerProvider>
     </TalentListProvider>
   );

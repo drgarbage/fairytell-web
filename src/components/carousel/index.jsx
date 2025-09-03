@@ -1,16 +1,34 @@
-import { useState } from 'react';
 import { Button } from 'flowbite-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef, useState } from 'react';
 
 function Carousel({
   images,
   className = '',
-  aspect = 'aspect-video',
+  aspect = 'aspect-square',
   rounded = 'rounded-lg',
   href,
   onClick,
 }) {
-  const [current, setCurrent] = useState(0);
+  const scrollContainerRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleScroll = (direction) => {
+    const container = scrollContainerRef.current;
+    const scrollAmount = container.offsetWidth; // 滾動一個圖片的寬度
+    container.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleScrollEvent = () => {
+    const container = scrollContainerRef.current;
+    const scrollLeft = container.scrollLeft;
+    const containerWidth = container.offsetWidth;
+    const newIndex = Math.round(scrollLeft / containerWidth);
+    setCurrentIndex(newIndex);
+  };
 
   const Wrapper = href
     ? 'a'
@@ -23,7 +41,11 @@ function Carousel({
     ...(href ? { href } : {}),
     ...(onClick ? { onClick } : {}),
     ...(Wrapper === 'button' ? { type: 'button' } : {}),
-    style: { padding: 0, border: 'none', background: 'none', cursor: href || onClick ? 'pointer' : 'default' },
+    style: { 
+      padding: 0, 
+      border: 'none', 
+      background: 'none', 
+      cursor: href || onClick ? 'pointer' : 'default' },
   };
 
   if (!images || images.length === 0) {
@@ -38,21 +60,33 @@ function Carousel({
 
   return (
     <Wrapper {...wrapperProps}>
-      <img
-        src={images[current]}
-        alt={`carousel-img-${current}`}
-        className={`w-full h-full object-cover ${rounded}`}
-        onClick={e => e.stopPropagation()}
-        style={{ display: 'block' }}
-      />
+      <div
+        ref={scrollContainerRef}
+        onScroll={handleScrollEvent}
+        className="flex overflow-x-auto scroll-snap-x snap-mandatory"
+        style={{
+          scrollBehavior: 'smooth',
+          WebkitOverflowScrolling: 'touch', // 修正 iPhone Safari 問題
+        }}
+      >
+        {images.map((src, idx) => (
+          <img
+            key={idx}
+            src={src}
+            alt={`carousel-img-${idx}`}
+            className={`flex-shrink-0 w-full h-auto object-cover ${rounded} snap-center`}
+            style={{ width: '100%', height: '100%' }}
+          />
+        ))}
+      </div>
       {images.length > 1 && (
         <>
           <Button
             color="gray"
             size="xs"
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
-              setCurrent((prev) => (prev - 1 + images.length) % images.length);
+              handleScroll('left');
             }}
             className="!absolute left-2 top-1/2 -translate-y-1/2 !bg-black/50 hover:!bg-black/70 !text-white !rounded-full !p-1"
           >
@@ -61,26 +95,21 @@ function Carousel({
           <Button
             color="gray"
             size="xs"
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
-              setCurrent((prev) => (prev + 1) % images.length);
+              handleScroll('right');
             }}
             className="!absolute right-2 top-1/2 -translate-y-1/2 !bg-black/50 hover:!bg-black/70 !text-white !rounded-full !p-1"
           >
             <ChevronRight size={20} />
           </Button>
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1">
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-2">
             {images.map((_, idx) => (
-              <button
+              <div
                 key={idx}
-                onClick={e => {
-                  e.stopPropagation();
-                  setCurrent(idx);
-                }}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  idx === current ? 'bg-white' : 'bg-white/50'
+                className={`w-2 h-2 rounded-full ${
+                  idx === currentIndex ? 'bg-white' : 'bg-gray-400'
                 }`}
-                type="button"
               />
             ))}
           </div>

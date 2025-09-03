@@ -27,17 +27,7 @@ function Sidebar({ model, reviews = [], isLoggedIn, commissions = {} }) {
       <div className="sticky flex flex-col bg-white border rounded-lg shadow top-8 border-pink-200">
         <div className="flex flex-col items-center p-6">
           <Avatar 
-            img={props => 
-              <Image 
-                src={model.avatar} 
-                alt={model.profile.name} 
-                width={512} 
-                height={512} 
-                style={{ objectFit: "cover" }}
-                priority
-                {...props} 
-                />
-            } 
+            img={model.avatar} 
             rounded 
             size="xl" 
             className="mb-4" 
@@ -74,7 +64,7 @@ function Sidebar({ model, reviews = [], isLoggedIn, commissions = {} }) {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">國籍：</span>
-                <span>{strings(nationText.toUpperCase())}</span>
+                <span>{nationText}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">身高：</span>

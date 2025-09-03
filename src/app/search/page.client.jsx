@@ -9,16 +9,25 @@ import ModelCard from "@/components/model-card";
 import { useDrawer } from "@/components/service-account-booking/drawer";
 
 
-export default function PageClient({preferences}) {
+export default function PageClient({type}) {
   const { isLoggedIn } = useUser();
-  const { accounts, filteredAccounts, query, setQuery, activeFiltersCount } = useTalentList();
+  const { filteredAccounts, query, setQuery, activeFiltersCount, currentCity } = useTalentList();
   const { setShowDrawer } = useDrawer();
   const router = useRouter();
-  const allModels = accounts || [];
+  const allModels = filteredAccounts || [];
   const filteredModels = filteredAccounts || [];
-  const displayModels = filteredAccounts || [];
-  const displayNearbyModels = filteredAccounts || [];
-  const displayNewModels = filteredAccounts || [];
+  let displayModels = [];
+  switch(type) {
+    case "latest":
+      displayModels = filteredAccounts.sort((a, b) => b.createdAt - a.createdAt);
+      break;
+    case "nearby":
+      displayModels = filteredAccounts.filter(account => account.placeInfo?.city === currentCity);
+      break;
+    default:
+      displayModels = filteredModels;
+      break;
+  }
 
   // @todo: random comission
   const commissions = { "BROKER": 500 };
