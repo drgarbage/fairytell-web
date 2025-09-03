@@ -1,4 +1,3 @@
-import {auth} from "@/firebase/auth";
 import addDocument from "@/firebase/firestore/addDocument";
 
 export default async function createReview({ user, serviceAccountId, reviewData }) {
