@@ -5,9 +5,11 @@ import { packageNameOf, packagePriceOf } from "@/utils/package-utils";
 import { PLATFORM_COMMISSION } from "@/schema/globals";
 import money from "@/utils/money";
 import strings from "@/utils/strings";
+import { useUser } from "@/hooks/useUser";
 
 
-function Sidebar({ model, reviews = [], isLoggedIn, contactInfo = {}, commissions = {} }) {
+function Sidebar({ model, reviews = [], contactInfo = {}, commissions = {} }) {
+  const { isLoggedIn } = useUser();
   const packagePrices = model.packages.map((p) => packagePriceOf(p, commissions));
   const priceRange =
     model.packages && model.packages.length > 0
@@ -20,6 +22,8 @@ function Sidebar({ model, reviews = [], isLoggedIn, contactInfo = {}, commission
 
   const [cheapestPackage] = model?.packages?.sort((a, b) => packagePriceOf(a, commissions) - packagePriceOf(b, commissions)) || [];
   const startingPrice = !!cheapestPackage ? `$${money(packagePriceOf(cheapestPackage, commissions))}+` : null;
+
+  console.log('isLoggedIn', isLoggedIn);
 
   return (
     <div className="lg:col-span-1">

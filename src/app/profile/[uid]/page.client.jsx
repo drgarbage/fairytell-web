@@ -30,7 +30,6 @@ function PageClient({ defaultBroker, model, posts, reviews }) {
           <Sidebar 
             model={model} 
             reviews={reviews} 
-            isLoggedIn={true} 
             contactInfo={defaultBroker?.brokerInfo?.contactInfo}
             commissions={commissions} 
             />
