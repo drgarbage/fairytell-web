@@ -23,8 +23,6 @@ function Sidebar({ model, reviews = [], contactInfo = {}, commissions = {} }) {
   const [cheapestPackage] = model?.packages?.sort((a, b) => packagePriceOf(a, commissions) - packagePriceOf(b, commissions)) || [];
   const startingPrice = !!cheapestPackage ? `$${money(packagePriceOf(cheapestPackage, commissions))}+` : null;
 
-  console.log('isLoggedIn', isLoggedIn);
-
   return (
     <div className="lg:col-span-1">
       <div className="sticky flex flex-col bg-white border rounded-lg shadow top-8 border-pink-200">
