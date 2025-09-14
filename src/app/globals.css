@@ -204,4 +204,5 @@
 /* HTML 基準字級（配合上方 var(--text-*) 對應 Tailwind） */
 html {
   font-size: var(--font-size);
+  color-scheme: light;
 }
