@@ -1,5 +1,5 @@
 'use client'
-import { Button, TextInput, Badge } from "flowbite-react";
+import { Button, TextInput, Badge, ThemeModeScript, DarkThemeToggle } from "flowbite-react";
 import { Sparkles, Search, SlidersHorizontal } from 'lucide-react';
 import { useTalentList } from "@/components/service-account-booking/context";
 import { useUser } from "@/hooks/useUser";

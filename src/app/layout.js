@@ -1,7 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { UserProvider } from "@/hooks/useUser";
 import { MessageProvider } from "@/hooks/useMessage";
-import { ThemeModeScript, ThemeProvider, createTheme } from "flowbite-react";
+import { ThemeProvider } from "flowbite-react";
+import { ThemeInit } from "../../.flowbite-react/init";
 import fetchDefaultBroker from "@/client-services/preference/defaultBroker";
 import Navbar from "@/components/navbar";
 import "./globals.css";
@@ -21,34 +22,24 @@ export const metadata = {
   description: "發現您的完美夥伴",
 };
 
-const customTheme = createTheme({
-  avatar: {
-    root: {
-      img: {
-        base: "rounded object-cover",
-      },
-    },
-  },
-});
-
 export default async function RootLayout({ children }) {
   const defaultBroker = await fetchDefaultBroker();
 
   return (
-    <html>
-      <head>
-        <ThemeModeScript />
-      </head>
-      <body className={`min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 ${geistSans.variable} ${geistMono.variable}`}>
-        <ThemeProvider theme={customTheme}>
-          <MessageProvider>
-            <UserProvider defaultBroker={defaultBroker}>
-              <Navbar />
-              {children}
-            </UserProvider>
-          </MessageProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ThemeProvider>
+      <html>
+        <head>
+          <ThemeInit />
+        </head>
+        <body className={`min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 ${geistSans.variable} ${geistMono.variable}`}>
+            <MessageProvider>
+              <UserProvider defaultBroker={defaultBroker}>
+                <Navbar />
+                {children}
+              </UserProvider>
+            </MessageProvider>
+        </body>
+      </html>
+    </ThemeProvider>
   );
 }

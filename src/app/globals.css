@@ -3,12 +3,9 @@
 @plugin "@iconify/tailwind4";
 @source "../../.flowbite-react/class-list.json";
 
-/* 讓 .dark（或其子孫）可觸發深色主題 */
-@custom-variant dark (&:is(.dark *));
-
 /* ────────────────────────────────────────────────────────────
-   Light 主題基底（可依需要調整數值）
-   ──────────────────────────────────────────────────────────── */
+  Light 主題基底（可依需要調整數值）
+  ──────────────────────────────────────────────────────────── */
 :root {
   --font-size: 14px;
   --background: #ffffff;
@@ -57,56 +54,8 @@
 }
 
 /* ────────────────────────────────────────────────────────────
-   Dark 主題（以 .dark 容器切換；同時也能搭配 prefers-color-scheme）
-   ──────────────────────────────────────────────────────────── */
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
-}
-
-/* 同時支援使用者系統偏好（可選） */
-@media (prefers-color-scheme: dark) {
-  :root:not(.dark *) {
-    /* 若不希望自動依偏好切換，移除這段即可 */
-  }
-}
-
-/* ────────────────────────────────────────────────────────────
-   Tailwind 顏色/尺寸映射（關鍵：讓 bg-background → var(--background)）
-   ──────────────────────────────────────────────────────────── */
+  Tailwind 顏色/尺寸映射（關鍵：讓 bg-background → var(--background)）
+  ──────────────────────────────────────────────────────────── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -155,49 +104,49 @@
 }
 
 /* ────────────────────────────────────────────────────────────
-   Base Layer：統一邊框與主題色（@apply 使用上方映射的顏色）
-   ──────────────────────────────────────────────────────────── */
+  Base Layer：統一邊框與主題色（@apply 使用上方映射的顏色）
+  ──────────────────────────────────────────────────────────── */
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+   @apply border-border outline-ring/50;
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-sans);
+   @apply bg-background text-foreground;
+   font-family: var(--font-sans);
   }
 }
 
 /* ────────────────────────────────────────────────────────────
-   基本文字樣式（不覆蓋有 text-* 類別的區塊）
-   ──────────────────────────────────────────────────────────── */
+  基本文字樣式（不覆蓋有 text-* 類別的區塊）
+  ──────────────────────────────────────────────────────────── */
 @layer base {
   :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
-    h1 {
-      font-size: var(--text-2xl);
-      font-weight: var(--font-weight-medium, 600);
-      line-height: 1.5;
-    }
-    h2 {
-      font-size: var(--text-xl);
-      font-weight: var(--font-weight-medium, 600);
-      line-height: 1.5;
-    }
-    h3 {
-      font-size: var(--text-lg);
-      font-weight: var(--font-weight-medium, 600);
-      line-height: 1.5;
-    }
-    h4, p, label, button, input {
-      font-size: var(--text-base);
-      line-height: 1.5;
-    }
-    h4, label, button {
-      font-weight: var(--font-weight-medium, 500);
-    }
-    p, input {
-      font-weight: var(--font-weight-normal, 400);
-    }
+   h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium, 600);
+    line-height: 1.5;
+   }
+   h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium, 600);
+    line-height: 1.5;
+   }
+   h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium, 600);
+    line-height: 1.5;
+   }
+   h4, p, label, button, input {
+    font-size: var(--text-base);
+    line-height: 1.5;
+   }
+   h4, label, button {
+    font-weight: var(--font-weight-medium, 500);
+   }
+   p, input {
+    font-weight: var(--font-weight-normal, 400);
+   }
   }
 }
 
