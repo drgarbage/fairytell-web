@@ -1,7 +1,8 @@
 "use client";
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function AgeGatePage() {
+function AgeGateContent() {
   const router = useRouter();
   const sp = useSearchParams();
   const redirect = sp.get("redirect") || "/";
@@ -46,5 +47,13 @@ export default function AgeGatePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AgeGatePage() {
+  return (
+    <Suspense fallback={null}>
+      <AgeGateContent />
+    </Suspense>
   );
 }
