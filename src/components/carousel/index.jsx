@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 function Carousel({
-  images,
+  medias,
   className = '',
   aspect = 'aspect-square',
   rounded = 'rounded-lg',
@@ -15,7 +15,7 @@ function Carousel({
 
   const handleScroll = (direction) => {
     const container = scrollContainerRef.current;
-    const scrollAmount = container.offsetWidth; // 滾動一個圖片的寬度
+    const scrollAmount = container.offsetWidth;
     container.scrollBy({
       left: direction === 'left' ? -scrollAmount : scrollAmount,
       behavior: 'smooth',
@@ -48,12 +48,12 @@ function Carousel({
       cursor: href || onClick ? 'pointer' : 'default' },
   };
 
-  if (!images || images.length === 0) {
+  if (!medias || medias.length === 0) {
     return (
       <div
         className={`flex items-center justify-center w-full ${aspect} ${rounded} bg-gray-200 text-gray-500 text-lg font-medium ${className}`}
       >
-        暫無圖片
+        暫無媒體
       </div>
     );
   }
@@ -66,20 +66,40 @@ function Carousel({
         className="flex overflow-x-auto scroll-snap-x snap-mandatory"
         style={{
           scrollBehavior: 'smooth',
-          WebkitOverflowScrolling: 'touch', // 修正 iPhone Safari 問題
+          WebkitOverflowScrolling: 'touch',
         }}
       >
-        {images.map((src, idx) => (
-          <img
-            key={idx}
-            src={src}
-            alt={`carousel-img-${idx}`}
-            className={`flex-shrink-0 w-full h-auto object-cover ${rounded} snap-center`}
-            style={{ width: '100%', height: '100%' }}
-          />
-        ))}
+        {medias.map((media, idx) => {
+          if (media.type.startsWith('image/')) {
+            return (
+              <img
+                key={idx}
+                src={media.url}
+                alt={`carousel-img-${idx}`}
+                className={`flex-shrink-0 w-full h-auto object-cover ${rounded} snap-center`}
+                style={{ width: '100%', height: '100%' }}
+              />
+            );
+          }
+          if (media.type.startsWith('video/')) {
+            return (
+              <video
+                key={idx}
+                src={media.url}
+                className={`flex-shrink-0 w-full h-auto object-cover ${rounded} snap-center`}
+                style={{ width: '100%', height: '100%' }}
+                autoPlay={idx === currentIndex}
+                muted
+                loop
+                playsInline
+                controls={false}
+              />
+            );
+          }
+          return null;
+        })}
       </div>
-      {images.length > 1 && (
+      {medias.length > 1 && (
         <>
           <Button
             color="gray"
@@ -104,7 +124,7 @@ function Carousel({
             <ChevronRight size={20} />
           </Button>
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-2">
-            {images.map((_, idx) => (
+            {medias.map((_, idx) => (
               <div
                 key={idx}
                 className={`w-2 h-2 rounded-full ${

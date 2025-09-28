@@ -87,10 +87,12 @@ export const TalentListProvider = ({
   const [accounts, setAccounts] = useState([]);
   const filteredAccounts = accounts
     .filter(o => {
+      console.log('expiry obj', typeof o?.publishExpiry, o?.publishExpiry);
       if (!o?.publishExpiry) return false;
       const expiryDate = typeof o.publishExpiry.toDate === 'function'
         ? o.publishExpiry.toDate()
         : new Date(o.publishExpiry);
+      console.log('expiry date', expiryDate);
       return expiryDate > new Date();
     })
     .filter(o => countriesKeys.length === 0 ? true : countriesKeys.includes(o?.profile?.nation))

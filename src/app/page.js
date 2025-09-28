@@ -46,6 +46,7 @@ export default async function Page() {
   const defaultBroker = await fetchDefaultBroker();
   // todo: 處理刊登條件
   // todo: 處理隨機幹部
+  console.log('defaultBroker.matches', {...defaultBroker.matches, state: 'ONLINE'});
   return (
     <TalentListProvider
       commissions={{...defaultBroker.commissions, ...PLATFORM_COMMISSION}}

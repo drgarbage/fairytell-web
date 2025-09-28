@@ -8,6 +8,7 @@ import money from '@/utils/money';
 function ModelCard({ model, onClick, isLoggedIn, newModel = false, commissions = {} }) {
   // 只取圖片
   const images = model.medias.filter(m => m.type.startsWith('image')).map(m => m.url);
+  const medias = model.medias || [];
 
   // 取服務名稱
   const services = [
@@ -38,7 +39,7 @@ function ModelCard({ model, onClick, isLoggedIn, newModel = false, commissions =
     <Card
       renderImage={() => 
         <div className="relative w-full">
-          <Carousel images={images} className="w-full" rounded="rounded-t-lg" />
+          <Carousel medias={medias} className="w-full" rounded="rounded-t-lg" />
           {newModel && (
             <Badge color="pink" className="absolute top-3 left-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
               新進模特兒
