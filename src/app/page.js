@@ -41,12 +41,16 @@ async function fetchPreferences(){
   }
 }
 
+export const metadata = {
+  title: "限制級內容",
+  robots: { index: false }, // 避免被搜尋引擎索引
+};
+
 export default async function Page() {
   const preferences = await fetchPreferences();
   const defaultBroker = await fetchDefaultBroker();
   // todo: 處理刊登條件
   // todo: 處理隨機幹部
-  console.log('defaultBroker.matches', {...defaultBroker.matches, state: 'ONLINE'});
   return (
     <TalentListProvider
       commissions={{...defaultBroker.commissions, ...PLATFORM_COMMISSION}}
