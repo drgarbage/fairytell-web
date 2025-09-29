@@ -7,9 +7,20 @@ function AgeGateContent() {
   const sp = useSearchParams();
   const redirect = sp.get("redirect") || "/";
 
+  console.log("AgeGate redirect to:", redirect);
+
   const accept = () => {
-    document.cookie = `ageVerified18=true; Path=/; Max-Age=${60*60*24*365}; SameSite=Lax`;
-    router.push(redirect);
+    console.log("User accepted age gate");
+    document.cookie = [
+      `__session=age18=1`,
+      "Path=/",
+      "Max-Age=" + 60*60*24*365, // 1 年
+      "SameSite=Lax",            // 如有跨站導回 -> 改成 "SameSite=None; Secure"
+      "Secure"                   // 站點走 https 時加上
+    ].join("; ");
+    console.log("Session set: age18=1");
+    router.replace(redirect);
+    console.log("Redirecting to:", redirect);
   };
 
   const decline = () => router.replace("/safe");
