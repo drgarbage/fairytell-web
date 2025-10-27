@@ -43,6 +43,7 @@ async function fetchPreferences(){
 
 export const metadata = {
   title: process.env.NEXT_PUBLIC_SITE_NAME || "GirlHub",
+  description: "連結專業模特兒，創造美好瞬間",
   robots: { index: false }, // 避免被搜尋引擎索引
 };
 
