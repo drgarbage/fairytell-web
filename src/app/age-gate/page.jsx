@@ -7,10 +7,7 @@ function AgeGateContent() {
   const sp = useSearchParams();
   const redirect = sp.get("redirect") || "/";
 
-  console.log("AgeGate redirect to:", redirect);
-
   const accept = () => {
-    console.log("User accepted age gate");
     document.cookie = [
       `__session=age18=1`,
       "Path=/",
@@ -18,9 +15,7 @@ function AgeGateContent() {
       "SameSite=Lax",            // 如有跨站導回 -> 改成 "SameSite=None; Secure"
       "Secure"                   // 站點走 https 時加上
     ].join("; ");
-    console.log("Session set: age18=1");
     router.replace(redirect);
-    console.log("Redirecting to:", redirect);
   };
 
   const decline = () => router.replace("/safe");

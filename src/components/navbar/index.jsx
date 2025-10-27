@@ -8,7 +8,6 @@ import signOut from "@/client-services/auth/signOut";
 export default function NavigationBar() {
   const router = useRouter();
   const { 
-    // currentPage, setCurrentPage, 
     user,
     showMobileMenu, setShowMobileMenu,
     isLoggedIn,
@@ -31,7 +30,7 @@ export default function NavigationBar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-              GirlHub
+              {process.env.NEXT_PUBLIC_SITE_NAME || "GirlHub"}
             </h1>
           </div>
 

@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "GirlHub",
+  title: process.env.NEXT_PUBLIC_SITE_NAME || "GirlHub",
   description: "發現您的完美夥伴",
 };
 
