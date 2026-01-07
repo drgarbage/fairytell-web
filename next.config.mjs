@@ -7,12 +7,17 @@ const nextConfig = {
   output: 'standalone',
   images: {
     remotePatterns: [
+      // {
+      //   protocol: 'https',
+      //   hostname: 'firebasestorage.googleapis.com',
+      //   port: '',
+      //   pathname: '/**',
+      // },
       {
         protocol: 'https',
-        hostname: 'firebasestorage.googleapis.com',
-        port: '',
+        hostname: '**',
         pathname: '/**',
-      },
+      }
     ],
   },
 };
